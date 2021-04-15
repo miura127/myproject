@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+	<meta charset="UTF-8">
+</head>
+
+<body>
+	<div th:fragment="userDetail_contents">
+		<div class="row">
+			<div class="col-sm-5">
+				<div class="page-header">
+					<h1>ユーザー詳細</h1>
+				</div>
+				<form method="post" th:action="@{/userDetail}" th:object="${signupForm}">
+					<table class="table table-bordered table-hover">
+						<!-- ユーザーID -->
+						<tr>
+							<th class="active col-sm-3">
+								ユーザーID
+							</th>
+							<td class="col-sm-3">
+								<div class="form-group">
+									<input type="text" class="form-control" th:field="*{userId}"
+										readonly="readonly"/>
+								</div>
+							</td>
+						</tr>
+
+						<!-- パスワード -->
+						<tr class="active">
+							<th>
+								パスワード
+							</th>
+							<td>
+								<div class="form-group"
+									th:classappend="${#fields.hasErrors('password')} ? 'has-error'">
+									<input type="text" class="form-control" th:field="*{password}"/>
+									<span class="text-danger"
+										th:if="${#fields.hasErrors('password')}"
+										th:errors="*{password}">
+											password error
+									</span>
+								</div>
+							</td>
+						</tr>
+
+						<!-- ユーザー名 -->
+						<tr>
+							<th class="active col-sm-3">
+								ユーザー名
+							</th>
+							<td class="col-sm-3">
+								<div class="form-group">
+									<input type="text" class="form-control" th:field="*{userName}" />
+								</div>
+							</td>
+						</tr>
+					</table>
+					<button class="btn btn-primary btn-lg pull-right"
+						type="submit"
+						name="update">
+							更新
+					</button>
+					<button class="btn btn-danger btn-lg"
+						type="submit"
+						name="delete">
+							削除
+					</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

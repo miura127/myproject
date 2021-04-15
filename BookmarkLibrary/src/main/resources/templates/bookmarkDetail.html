@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+	<meta charset="UTF-8">
+</head>
+
+<body>
+	<div th:fragment="bookmarkDetail_contents">
+		<div class="row">
+			<div class="col-sm-5">
+				<div class="page-header">
+					<h1>投稿詳細</h1>
+				</div>
+				<form method="post" th:action="@{/bookmarkDetail}" th:object="${bookmarkForm}">
+					<span class="invisible">
+						<input type="text" class="form-control" th:field="${bookmark.id}" />
+					</span>
+					<table class="table table-bordered table-hover">
+						<!-- 登録者情報 -->
+						<tr>
+							<th class="active col-sm-3">
+								登録者ID
+							</th>
+							<td class="col-sm-3">
+								<div class="form-group">
+									<input type="text" class="form-control" th:field="${bookmark.registerUser}"
+										readonly="readonly"/>
+								</div>
+							</td>
+						</tr>
+						<!-- カテゴリ -->
+						<tr class="active">
+							<th>
+								カテゴリ
+							</th>
+							<td>
+								<div class="form-group">
+									<select name="category">
+										<option value="">----------</option>
+										<option th:each="selectCategory : ${selectCategorys}"
+											th:value="${selectCategory.value}"
+											th:text="${selectCategory.value}"
+											th:selected="${selectCategory.value} == *{category}">
+											カテゴリ
+										</option>
+									</select>
+								</div>
+							</td>
+						</tr>
+						<!-- URL -->
+						<tr class="active">
+							<th>
+								URL
+							</th>
+							<td>
+								<div class="form-group"
+									th:classappend="${#fields.hasErrors('url')} ? 'has-error'">
+									<input type="text" class="form-control" th:field="*{url}"/>
+									<span class="text-danger"
+										th:if="${#fields.hasErrors('url')}"
+										th:errors="*{url}">
+											url error
+									</span>
+								</div>
+							</td>
+						</tr>
+						<!-- コメント -->
+						<tr class="active">
+							<th>
+								コメント
+							</th>
+							<td>
+								<div class="form-group"
+									th:classappend="${#fields.hasErrors('comment')} ? 'has-error'">
+									<input type="text" class="form-control" th:field="*{comment}"/>
+									<span class="text-danger"
+										th:if="${#fields.hasErrors('comment')}"
+										th:errors="*{comment}">
+											comment error
+									</span>
+								</div>
+							</td>
+						</tr>
+					</table>
+					<button class="btn btn-primary btn-lg pull-right"
+						type="submit"
+						name="update">
+							更新
+					</button>
+					<button class="btn btn-danger btn-lg"
+						type="submit"
+						name="delete">
+							削除
+					</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

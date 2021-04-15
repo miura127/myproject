@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+	<meta charset="UTF-8">
+</head>
+
+<body>
+	<div th:fragment="bookmarkInsert_contents">
+		<div class="row">
+			<div class="col-sm-5">
+				<div class="page-header">
+					<h1>新規投稿画面</h1>
+				</div>
+				<form method="post" th:action="@{/bookmarkInsert}" th:object="${bookmarkForm}">
+					<table class="table table-bordered table-hover">
+						<!-- カテゴリ -->
+						<tr class="active">
+							<th>
+								カテゴリ
+							</th>
+							<td>
+								<div class="form-group">
+									<select name="category">
+										<option value="">----------</option>
+										<option th:each="selectCategory : ${selectCategorys}"
+											th:value="${selectCategory.value}"
+											th:text="${selectCategory.value}"
+											th:selected="${selectCategory.value} == *{category}">
+											カテゴリ
+										</option>
+								</select>
+								</div>
+							</td>
+						</tr>
+						<!-- URL -->
+						<tr class="active">
+							<th>
+								URL
+							</th>
+							<td>
+								<div class="form-group"
+									th:classappend="${#fields.hasErrors('url')} ? 'has-error'">
+									<input type="text" class="form-control" th:field="*{url}"/>
+									<span class="text-danger"
+										th:if="${#fields.hasErrors('url')}"
+										th:errors="*{url}">
+											url error
+									</span>
+								</div>
+							</td>
+						</tr>
+						<!-- コメント -->
+						<tr class="active">
+							<th>
+								コメント
+							</th>
+							<td>
+								<div class="form-group">
+									<input type="text" class="form-control" th:field="*{comment}"/>
+								</div>
+							</td>
+						</tr>
+					</table>
+					<button class="btn btn-primary" type="submit">ブックマーク登録</button>
+
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

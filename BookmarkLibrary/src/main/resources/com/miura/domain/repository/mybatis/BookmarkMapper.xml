@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "com.miura.domain.repository.mybatis.BookmarkMapper">
+
+	<insert id="insert" parameterType="Bookmark" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO bookmark(
+			category,
+			url,
+			comment,
+			register_user
+		)
+		VALUES(
+			#{category},
+			#{url},
+			#{comment},
+			#{registerUser}
+		)
+	</insert>
+
+	<select id="count" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			bookmark
+	</select>
+
+	<select id="selectOne" parameterType="int" resultType="Bookmark">
+		SELECT
+			id,
+			category,
+			url,
+			comment,
+			register_user
+		FROM
+			bookmark
+		WHERE
+			id = #{id}
+	</select>
+
+	<update id="updateOne" parameterType="Bookmark">
+		UPDATE
+			bookmark
+		SET
+			category = #{category},
+			url = #{url},
+			comment = #{comment}
+		WHERE
+			id = #{id}
+	</update>
+
+	<delete id="deleteOne" parameterType="int">
+		DELETE FROM
+			bookmark
+		WHERE
+			id = #{id}
+	</delete>
+
+	<select id="selectAll" resultType="Bookmark">
+		SELECT
+			id,
+			category,
+			url,
+			comment,
+			register_user
+		FROM
+			bookmark
+	</select>
+
+	<select id="selectByCategory" parameterType="string" resultType="Bookmark">
+		SELECT
+			id,
+			category,
+			url,
+			comment,
+			register_user
+		FROM
+			bookmark
+		WHERE
+			category = #{category}
+	</select>
+
+	<select id="countByCategory" parameterType="string" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			bookmark
+		WHERE
+			category = #{category}
+	</select>
+
+	<select id="countByKeyword" parameterType="string" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			bookmark
+		WHERE
+			comment LIKE CONCAT('%', #{kewword}, '%')
+	</select>
+
+	<select id="selectByKeyword" parameterType="string" resultType="Bookmark">
+	SELECT
+		id,
+		category,
+		url,
+		comment,
+		register_user
+	FROM
+		bookmark
+	WHERE
+		comment LIKE CONCAT('%', #{kewword}, '%')
+	</select>
+
+</mapper>
